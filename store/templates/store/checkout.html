@@ -1,0 +1,34 @@
+{% extends "store/base.html" %}
+{% block content %}
+<h2>Checkout</h2>
+<div class="checkout-container">
+    {% if cart_items %}
+    <div class="checkout-list">
+        {% for item in cart_items %}
+        <div class="checkout-item">
+            {% if item.product.image %}
+            <div class="checkout-img">
+                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+            </div>
+            {% endif %}
+            <div class="checkout-details">
+                <h4>{{ item.product.name }}</h4>
+                <p>Price: ${{ item.product.price }}</p>
+                <p>Quantity: {{ item.quantity }}</p>
+                <p class="item-subtotal">
+                    Subtotal: ${{ item.subtotal|floatformat:2 }}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="checkout-total">
+        <p><strong>Total:</strong> ${{ total }}</p>
+        <p class="note">This is a demo checkout page. No payment is integrated.</p>
+    </div>
+    {% else %}
+    <p>Your cart is empty.</p>
+    {% endif %}
+</div>
+{% endblock %}
